@@ -24,6 +24,19 @@ function Login() {
     setDisplaySignUp(false);
   };
 
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [erroSenha, setErroSenha] = useState('');
+
+  const handleLogin = () => {
+    if (senha === confirmarSenha) {
+      // Lógica para enviar o formulário
+      console.log('Formulário enviado com sucesso!');
+    } else {
+      setErroSenha('Senha inválida. Por favor, tente novamente.');
+    }
+  };
+
   return (
     <div className="relative flex justify-center items-center h-screen overflow-hidden px-8 py-12">
       <video
@@ -112,7 +125,42 @@ function Login() {
               placeholder="Cadastre sua senha!"
               maxLength={10}
               minLength={4}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
             />
+            <label className="mb-1 mt-4">Confirmar Senha</label>
+            <input
+              type="password"
+              className={`rounded-lg mt-2 p-2 border text-gray-900 ${erroSenha ? 'border-red-500' : ''
+                }`}
+              placeholder="Confirmar sua senha!"
+              maxLength={10}
+              minLength={4}
+              value={confirmarSenha}
+              onChange={(e) => {
+                setConfirmarSenha(e.target.value);
+                setErroSenha(''); // Limpa a mensagem de erro ao digitar
+              }}
+            />
+            {erroSenha && <p className="text-red-500 mt-1 text-center">{erroSenha}</p>}
+          </div>
+          <div className="px-4 py-2 mb-1">
+            <button
+              type="button"
+              onClick={(event) => handleDisplayLogin(event)}
+              className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 font-bold hover:cursor-pointer transition duration-300 shadow-lg enabled:hover:shadow-blue-900 disabled:bg-blue-200 disabled:shadow-none enabled:shadow-200/50"
+            >
+              Fazer Login
+            </button>
+          </div>
+          <div className="px-4 py-2 mb-1">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 font-bold hover:cursor-pointer transition duration-300 hover:animate-pulse shadow-lg enabled:hover:shadow-blue-900 disabled:bg-blue-200 disabled:shadow-none enabled:shadow-200/50"
+              onClick={handleLogin}
+            >
+              Criar Conta
+            </button>
           </div>
         </div>
       )}
